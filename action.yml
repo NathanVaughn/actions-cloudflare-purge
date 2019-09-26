@@ -1,0 +1,9 @@
+name: 'Cloudflare cache purge action'
+description: 'A GitHub Action to purge Cloudflare''s cache of your site'
+author: 'Nathan Vaughn'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'cloud'
+  color: 'orange'
