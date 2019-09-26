@@ -37,6 +37,7 @@ None
 ```yml
 - name: Purge cache
   uses: nathanvaughn/actions-cloudflare-purge@master
+  if: success()
   env:
     CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
     CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
@@ -64,3 +65,5 @@ right-hand panel.
 
 Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
 to add these values to your repository's secrets.
+
+![](images/secrets.jpg)
