@@ -20,7 +20,7 @@ response=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE
 
 echo "Response data: $response"
 
-if [['"success":true' =~ $response ]]; then
+if [[ $response =~ '"success":true' ]]; then
     echo "Cloudflare cache cleared successfully"
     exit 0
 else
