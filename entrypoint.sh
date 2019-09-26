@@ -16,7 +16,7 @@ if [ -z "${CLOUDFLARE_AUTH_KEY}" ]; then
     exit 1
 fi
 
-response = $(curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/purge_cache" -H "Authorization: Bearer ${CLOUDFLARE_AUTH_KEY}" -H "Content-Type: application/json" --data '{"purge_everything":true}')
+response=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/purge_cache" -H "Authorization: Bearer ${CLOUDFLARE_AUTH_KEY}" -H "Content-Type: application/json" --data '{"purge_everything":true}')
 
 echo "Response data: $response"
 
@@ -25,6 +25,5 @@ if [['"success":true' =~ $response ]]; then
     exit 0
 else
     print_error "Cloudflare API call failed"
-    print_error $response
     exit 1
 fi
