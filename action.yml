@@ -1,5 +1,5 @@
-name: 'Cloudflare cache purge action'
-description: 'A GitHub Action to purge Cloudflare''s cache of your site'
+name: 'Cloudflare Cache Purge Action'
+description: 'A GitHub Action to purge Cloudflare''s entire cache of your site'
 author: 'Nathan Vaughn'
 runs:
   using: 'docker'

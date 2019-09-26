@@ -1,4 +1,4 @@
-# Cloudflare Purge Action
+# Cloudflare Cache Purge Action
 
 This action uses Cloudflare's API to purge their entire cache of your site.
 
