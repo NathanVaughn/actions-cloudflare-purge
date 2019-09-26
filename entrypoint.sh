@@ -11,22 +11,20 @@ if [ -z "${CLOUDFLARE_ZONE}" ]; then
     exit 1
 fi
 
-if [ -z "${CLOUDFLARE_EMAIL}" ]; then
-    print_error "Cloudflare email address key not found"
-    exit 1
-fi
-
 if [ -z "${CLOUDFLARE_AUTH_KEY}" ]; then
     print_error "Cloudflare auth key not found"
     exit 1
 fi
 
-response = $(
-    curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/purge_cache" \
-    -H "X-Auth-Email: ${CLOUDFLARE_EMAIL}" \
-    -H "X-Auth-Key: ${CLOUDFLARE_AUTH_KEY}" \
-    -H "Content-Type: application/json" \
-    --data '{"purge_everything":true}'
-)
+response = $(curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/purge_cache" -H "Authorization: Bearer ${CLOUDFLARE_AUTH_KEY}" -H "Content-Type: application/json" --data '{"purge_everything":true}')
 
 echo "Response data: $response"
+
+if [['"success":true' =~ $response ]]; then
+    echo "Cloudflare cache cleared successfully"
+    exit 0
+else
+    print_error "Cloudflare API call failed"
+    print_error $response
+    exit 1
+fi

@@ -12,19 +12,15 @@ section of your repository information.
 
 The zone ID of your Cloudflare site. Example:
 
-```
+```bash
 023e105f4ecef8ad9ca31a8372d0c353
 ```
-
-### `CLOUDFLARE_EMAIL`
-
-The email address of your Cloudflare account.
 
 ### `CLOUDFLARE_AUTH_KEY`
 
 The Cloudflare API key you've generated for your zone. Example:
 
-```
+```bash
 c2547eb745079dac9320b638f5e225cf483cc5cfdda41
 ```
 
@@ -32,7 +28,7 @@ c2547eb745079dac9320b638f5e225cf483cc5cfdda41
 
 None
 
-## Example usage
+## Example Usage
 
 ```yml
 - name: Purge cache
@@ -40,26 +36,25 @@ None
   if: success()
   env:
     CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
-    CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
     CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
 ```
 
 ## Getting Cloudflare Info
 
-1. First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
+1.  First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
 in your Cloudflare account.
 ![](images/api-tokens.jpg)
 
-2. Click "Create Token", and fill out the form. Make sure to give the permission of
+2.  Click "Create Token", and fill out the form. Make sure to give the permission of
 zone cache purge.
 ![](images/token-creation.jpg)
 
-3. Click "Continue to summary", then "Confirm".
+3.  Click "Continue to summary", then "Confirm".
 
-4. Copy the value of the token.
+4.  Copy the value of the token.
 ![](images/copy-token.jpg)
 
-5. To find the zone ID for your site, go to your dashboard for the site, and look on the
+5.  To find the zone ID for your site, go to your dashboard for the site, and look on the
 right-hand panel.
 ![](images/zone-id.jpg)
 
