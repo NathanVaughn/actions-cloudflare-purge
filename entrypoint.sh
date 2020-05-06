@@ -21,7 +21,7 @@ response=$(curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE
 echo "Response data: $response"
 
 # remove whitespace from string
-response=$(echo $temp | tr -d ' ')
+response=$(echo "$response" | tr -d ' ')
 
 if [[ $response =~ '"success":true' ]]; then
     echo "Cloudflare cache cleared successfully"
