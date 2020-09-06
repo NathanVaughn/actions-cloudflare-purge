@@ -1,9 +1,8 @@
 # Cloudflare Cache Purge Action
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/816b3dfe8bb34c9eb922a638ff6fa3bb)](https://www.codacy.com/manual/NathanVaughn/actions-cloudflare-purge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NathanVaughn/actions-cloudflare-purge&amp;utm_campaign=Badge_Grade)
 
-This action uses Cloudflare's API to purge their entire cache of your site.
-
-**\*Currently, only purging [ALL files](https://api.cloudflare.com/#zone-purge-all-files) is supported.**
+This action uses Cloudflare's API to purge their
+[entire cache](https://api.cloudflare.com/#zone-purge-all-files) of your site.
 
 ## Inputs
 
