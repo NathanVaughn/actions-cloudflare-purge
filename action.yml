@@ -24,12 +24,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - '--cf-zone ${{ inputs.cf_zone }}'
-    - '--cf-auth ${{ inputs.cf_auth }}'
-    - '--urls ${{ inputs.urls }}'
-    - '--tags ${{ inputs.tags }}'
-    - '--hosts ${{ inputs.hosts }}'
-    - '--prefixes ${{ inputs.prefixes }}'
+    - '--cf-zone ${{ inputs.cf_zone }} --cf-auth ${{ inputs.cf_auth }} --urls ${{ inputs.urls }} --tags ${{ inputs.tags }} --hosts ${{ inputs.hosts }} --prefixes ${{ inputs.prefixes }}'
 branding:
   icon: 'cloud'
   color: 'orange'

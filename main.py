@@ -2,6 +2,7 @@ import argparse
 import json
 import pprint
 import os
+import sys
 from urllib import request, parse
 
 
@@ -10,8 +11,8 @@ def main():
     parser = argparse.ArgumentParser()
 
     # load values from environment first, by default
-    parser.add_argument("--cf-zone", nargs="?", type=str, default=os.getenv("CLOUDFLARE_ZONE"))
-    parser.add_argument("--cf-auth", nargs="?", type=str, default=os.getenv("CLOUDFLARE_AUTH_KEY"))
+    parser.add_argument("--cf-zone", nargs="?", type=str)
+    parser.add_argument("--cf-auth", nargs="?", type=str)
 
     # caching objects
     parser.add_argument("--urls", nargs="*", type=str)
@@ -19,8 +20,16 @@ def main():
     parser.add_argument("--hosts", nargs="*", type=str)
     parser.add_argument("--prefixes", nargs="*", type=str)
 
-    args = parser.parse_args()
+    args = parser.parse_args(sys.argv[1])
 
+    # if no argument given, pull from environment
+    if not args.cf_zone:
+        args.cf_zone = os.getenv("CLOUDFLARE_ZONE")
+        
+    if not args.cf_auth:
+        args.cf_auth = os.getenv("CLOUDFLARE_AUTH_KEY")
+
+    # see if anything was set
     if not args.cf_zone:
         parser.error("Cloudflare Zone required")
 
