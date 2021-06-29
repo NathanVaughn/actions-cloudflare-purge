@@ -33,7 +33,7 @@ c2547eb745079dac9320b638f5e225cf483cc5cfdda41
 A space seperated list of URLs to purge. Example:
 
 ```text
-"https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png"
+https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
 ```
 
 ### `tags` (optional)
@@ -41,7 +41,7 @@ A space seperated list of URLs to purge. Example:
 A space seperated list of tags to purge. Example:
 
 ```text
-"some-tag another-tag"
+some-tag another-tag
 ```
 
 ### `hosts` (optional)
@@ -49,7 +49,7 @@ A space seperated list of tags to purge. Example:
 A space seperated list of hosts to purge. Example:
 
 ```text
-"nathanv.me blog.nathanv.me"
+nathanv.me blog.nathanv.me
 ```
 
 ### `prefixes` (optional)
@@ -57,7 +57,7 @@ A space seperated list of hosts to purge. Example:
 A space seperated list of prefixes to purge. Example:
 
 ```text
-"nathanv.me/assets/ blog.nathanv.me/assets"
+nathanv.me/assets/ blog.nathanv.me/assets
 ```
 
 ## Outputs
@@ -93,10 +93,10 @@ None
   with:
     cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
     cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
-    urls: "https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png"
-    tags: "some-tag another-tag"
-    hosts: "nathanv.me blog.nathanv.me"
-    prefixes: "nathanv.me/assets/ blog.nathanv.me/assets"
+    urls: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
+    tags: some-tag another-tag
+    hosts: nathanv.me blog.nathanv.me
+    prefixes: nathanv.me/assets/ blog.nathanv.me/assets
 ```
 
 ## Getting Cloudflare Info
