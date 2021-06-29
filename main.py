@@ -73,6 +73,7 @@ def main():
     # process response
     resp_data = json.loads(resp.read())
 
+    print("Response:")
     print(pprint.pprint(resp_data))
 
     if resp_data["success"] != True:
