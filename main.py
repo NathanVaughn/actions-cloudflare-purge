@@ -56,7 +56,7 @@ def main():
         data["purge_everything"] = True
 
     # create the request
-    url = f"https://api.cloudflare.com/client/v4/zones/args.cf_zone/purge_cache"
+    url = f"https://api.cloudflare.com/client/v4/zones/{args.cf_zone}/purge_cache"
     headers = {"Authorization": f"Bearer {args.cf_auth}"}
     encoded_data = parse.urlencode(data).encode()
 
