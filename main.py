@@ -3,7 +3,7 @@ import json
 import pprint
 import os
 import sys
-from urllib import request, parse
+from urllib import request
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
     # if no argument given, pull from environment
     if not args.cf_zone:
         args.cf_zone = os.getenv("CLOUDFLARE_ZONE")
-        
+
     if not args.cf_auth:
         args.cf_auth = os.getenv("CLOUDFLARE_AUTH_KEY")
 
@@ -57,8 +57,12 @@ def main():
 
     # create the request
     url = f"https://api.cloudflare.com/client/v4/zones/{args.cf_zone}/purge_cache"
-    headers = {"Authorization": f"Bearer {args.cf_auth}"}
-    encoded_data = parse.urlencode(data).encode()
+    encoded_data = json.dumps(data).encode("utf-8")
+    headers = {
+        "Authorization": f"Bearer {args.cf_auth}",
+        "Content-Type": "application/json",
+        "Content-Length": len(encoded_data),
+    }
 
     # send it
     print(f"Making POST request to {url} with {data}")
