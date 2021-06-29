@@ -1,6 +1,4 @@
-FROM alpine:3.14.0
+FROM python:3.9-alpine
 
-RUN apk add --no-cache bash curl
-
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY main.py /app/main.py
+ENTRYPOINT ["python", "/app/main.py"]
