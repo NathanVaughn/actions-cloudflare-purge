@@ -20,7 +20,7 @@ def main():
     parser.add_argument("--hosts", nargs="*", type=str)
     parser.add_argument("--prefixes", nargs="*", type=str)
 
-    args = parser.parse_args(sys.argv[1])
+    args = parser.parse_args(sys.argv[1].split())
 
     # if no argument given, pull from environment
     if not args.cf_zone:
