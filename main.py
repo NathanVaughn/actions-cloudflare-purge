@@ -64,6 +64,13 @@ def main():
         "Content-Length": len(encoded_data),
     }
 
+    # when testing, print the url, data, headers, and exit.
+    if os.getenv("NATHANVAUGHN_TESTING"):
+        print(url)
+        print(json.dumps(headers))
+        print(json.dumps(data))
+        sys.exit()
+
     # send it
     print(f"Making POST request to {url} with {data}")
 
