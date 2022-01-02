@@ -1,7 +1,6 @@
 # Cloudflare Cache Purge Action
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/816b3dfe8bb34c9eb922a638ff6fa3bb)](https://www.codacy.com/manual/NathanVaughn/actions-cloudflare-purge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NathanVaughn/actions-cloudflare-purge&amp;utm_campaign=Badge_Grade)
 
 This action uses Cloudflare's API to purge their
 [cache](https://api.cloudflare.com/#zone-purge-all-files) of your site.
