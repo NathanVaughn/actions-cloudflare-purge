@@ -1,12 +1,35 @@
 import argparse
 import json
-import pprint
 import os
+import pprint
 import sys
+from typing import List
 from urllib import request
 
 
-def main():
+def split_and_flatten_list(items: List[str]) -> List[str]:
+    """
+    Take a list of strings and return a flat list of strings of the previous
+    elements split by spaces.
+    """
+    # in case input is None, return an empty list
+    if items is None:
+        return []
+
+    new_list = []
+
+    # split each element by spaces
+    for item in items:
+        new_list.extend(item.split(" "))
+
+    # filter out empty strings
+    return [i for i in new_list if i != ""]
+
+
+def main() -> None:
+    if not os.getenv("NATHANVAUGHN_TESTING"):
+        print(f"::debug::{' '.join(sys.argv)}")
+
     # parse the arguments
     parser = argparse.ArgumentParser()
 
@@ -20,7 +43,16 @@ def main():
     parser.add_argument("--hosts", nargs="*", type=str)
     parser.add_argument("--prefixes", nargs="*", type=str)
 
-    args = parser.parse_args(sys.argv[1].split())
+    args = parser.parse_args()
+
+    # this is weird because while each argument accepts a list, GitHub Actions
+    # provides a single value for each argument. So, need to split each element
+    # by spaces to make it compatible with both with weird argument stuff
+    # and normal CLI usage.
+    args.urls = split_and_flatten_list(args.urls)
+    args.tags = split_and_flatten_list(args.tags)
+    args.hosts = split_and_flatten_list(args.hosts)
+    args.prefixes = split_and_flatten_list(args.prefixes)
 
     # if no argument given, pull from environment
     if not args.cf_zone:
@@ -37,42 +69,43 @@ def main():
         parser.error("Cloudflare Auth required")
 
     # prepare the request data
-
-    data = {}
+    req_data = {}
 
     if args.urls:
-        data["files"] = args.urls
+        req_data["files"] = args.urls
 
     if args.tags:
-        data["tags"] = args.tags
+        req_data["tags"] = args.tags
 
     if args.hosts:
-        data["hosts"] = args.hosts
+        req_data["hosts"] = args.hosts
 
     if args.prefixes:
-        data["prefixes"] = args.prefixes
+        req_data["prefixes"] = args.prefixes
 
-    if not args.urls and not args.tags and not args.hosts and not args.prefixes:
-        data["purge_everything"] = True
+    if not any([args.urls, args.tags, args.hosts, args.prefixes]):
+        req_data["purge_everything"] = True
 
     # create the request
     url = f"https://api.cloudflare.com/client/v4/zones/{args.cf_zone}/purge_cache"
-    encoded_data = json.dumps(data).encode("utf-8")
+    encoded_data = json.dumps(req_data).encode("utf-8")
     headers = {
         "Authorization": f"Bearer {args.cf_auth}",
         "Content-Type": "application/json",
         "Content-Length": len(encoded_data),
     }
 
-    # when testing, print the url, data, headers, and exit.
     if os.getenv("NATHANVAUGHN_TESTING"):
+        # when testing, don't actually make a request
         print(url)
         print(json.dumps(headers))
-        print(json.dumps(data))
+        print(json.dumps(req_data))
         sys.exit()
-
-    # send it
-    print(f"Making POST request to {url} with {data}")
+    else:
+        print("Request:")
+        print(f"\033[0;36m{url}\033[0m")
+        # print(f"\033[0;36m{pprint.pformat(headers)}\033[0m")
+        print(f"\033[0;36m{pprint.pformat(req_data)}\033[0m")
 
     req = request.Request(url, data=encoded_data, headers=headers)
     resp = request.urlopen(req)
@@ -80,11 +113,13 @@ def main():
     # process response
     resp_data = json.loads(resp.read())
 
+    print("\n")
     print("Response:")
-    print(pprint.pprint(resp_data))
+    print(f"\033[0;36m{pprint.pformat(resp_data)}\033[0m")
 
     if resp_data["success"] != True:
-        raise Exception("Success NOT True")
+        print("::error::Success NOT True")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

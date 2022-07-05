@@ -1,30 +1,41 @@
-name: 'Cloudflare Cache Purge Action'
-description: 'A GitHub Action to purge Cloudflare''s entire cache of your site'
-author: 'Nathan Vaughn'
+name: "Cloudflare Cache Purge Action"
+description: "A GitHub Action to purge Cloudflare's entire cache of your site"
+author: "Nathan Vaughn"
 inputs:
-  cf_zone:  
-    description: 'Cloudflare Zone'
-    required: false
-  cf_auth:  
-    description: 'Cloudflare Authentication Key'
-    required: false
-  urls:  
-    description: 'URLs to purge'
-    required: true
-  tags:  
-    description: 'Cache-Tags to purge'
-    required: true
-  hosts:  
-    description: 'Hosts to purge'
-    required: true
-  prefixes:  
-    description: 'Prefixes to purge'
-    required: true
+    cf_zone:
+        description: "Cloudflare Zone"
+        required: false
+    cf_auth:
+        description: "Cloudflare Authentication Key"
+        required: false
+    urls:
+        description: "URLs to purge"
+        required: false
+    tags:
+        description: "Cache-Tags to purge"
+        required: false
+    hosts:
+        description: "Hosts to purge"
+        required: false
+    prefixes:
+        description: "Prefixes to purge"
+        required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - '--cf-zone ${{ inputs.cf_zone }} --cf-auth ${{ inputs.cf_auth }} --urls ${{ inputs.urls }} --tags ${{ inputs.tags }} --hosts ${{ inputs.hosts }} --prefixes ${{ inputs.prefixes }}'
+    using: "docker"
+    image: "Dockerfile"
+    args:
+        - "--cf-zone"
+        - "${{ inputs.cf_zone }}"
+        - "--cf-auth"
+        - "${{ inputs.cf_auth }}"
+        - "--urls"
+        - "${{ inputs.urls }}"
+        - "--tags"
+        - "${{ inputs.tags }}"
+        - "--hosts"
+        - "${{ inputs.hosts }}"
+        - "--prefixes"
+        - "${{ inputs.prefixes }}"
 branding:
-  icon: 'cloud'
-  color: 'orange'
+    icon: "cloud"
+    color: "orange"
