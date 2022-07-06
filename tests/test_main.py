@@ -35,6 +35,8 @@ def test_legacy():
             "",
             "--urls",
             "",
+            "--files",
+            "",
             "--tags",
             "",
             "--hosts",
@@ -62,6 +64,8 @@ def test_new():
             "key123",
             "--urls",
             "",
+            "--files",
+            "",
             "--tags",
             "",
             "--hosts",
@@ -87,6 +91,8 @@ def test_new_missing():
                 "",
                 "--urls",
                 "",
+                "--files",
+                "",
                 "--tags",
                 "",
                 "--hosts",
@@ -105,6 +111,8 @@ def test_new_missing():
                 "",
                 "--urls",
                 "",
+                "--files",
+                "",
                 "--tags",
                 "",
                 "--hosts",
@@ -122,6 +130,8 @@ def test_new_missing():
                 "--cf-auth",
                 "key123",
                 "--urls",
+                "",
+                "--files",
                 "",
                 "--tags",
                 "",
@@ -145,6 +155,8 @@ def test_legacy_missing():
                 "",
                 "--urls",
                 "",
+                "--files",
+                "",
                 "--tags",
                 "",
                 "--hosts",
@@ -165,6 +177,8 @@ def test_legacy_missing():
                 "",
                 "--urls",
                 "",
+                "--files",
+                "",
                 "--tags",
                 "",
                 "--hosts",
@@ -183,6 +197,8 @@ def test_legacy_missing():
                 "--cf-auth",
                 "",
                 "--urls",
+                "",
+                "--files",
                 "",
                 "--tags",
                 "",
@@ -205,6 +221,8 @@ def test_mix():
             "--cf-auth",
             "",
             "--urls",
+            "",
+            "--files",
             "",
             "--tags",
             "",
@@ -229,6 +247,8 @@ def test_mix():
             "--cf-auth",
             "key123",
             "--urls",
+            "",
+            "--files",
             "",
             "--tags",
             "",
@@ -254,6 +274,33 @@ def test_urls():
             "key123",
             "--urls",
             "nathanv.me google.com",
+            "--files",
+            "",
+            "--tags",
+            "",
+            "--hosts",
+            "",
+            "--prefixes",
+            "",
+        ]
+    )
+
+    assert url == "https://api.cloudflare.com/client/v4/zones/zone123/purge_cache"
+    assert headers["Authorization"] == "Bearer key123"
+    assert data == {"files": ["nathanv.me", "google.com"]}
+
+
+def test_files():
+    url, headers, data = run_command(
+        [
+            "--cf-zone",
+            "zone123",
+            "--cf-auth",
+            "key123",
+            "--urls",
+            "",
+            "--files",
+            "nathanv.me google.com",
             "--tags",
             "",
             "--hosts",
@@ -276,6 +323,8 @@ def test_tags():
             "--cf-auth",
             "key123",
             "--urls",
+            "",
+            "--files",
             "",
             "--tags",
             "tag1 tag-2",
@@ -300,6 +349,8 @@ def test_hosts():
             "key123",
             "--urls",
             "",
+            "--files",
+            "",
             "--tags",
             "",
             "--hosts",
@@ -323,6 +374,8 @@ def test_prefixes():
             "key123",
             "--urls",
             "",
+            "--files",
+            "",
             "--tags",
             "",
             "--hosts",
@@ -345,6 +398,8 @@ def test_purge_everything():
             "--cf-auth",
             "key123",
             "--urls",
+            "",
+            "--files",
             "",
             "--tags",
             "",
@@ -370,6 +425,8 @@ def test_full():
             "key123",
             "--urls",
             "nathanv.me google.com",
+            "--files",
+            "blog.nathanv.me",
             "--tags",
             "tag1 tag-2",
             "--hosts",
@@ -382,7 +439,7 @@ def test_full():
     assert url == "https://api.cloudflare.com/client/v4/zones/zone123/purge_cache"
     assert headers["Authorization"] == "Bearer key123"
     assert data == {
-        "files": ["nathanv.me", "google.com"],
+        "files": ["blog.nathanv.me", "nathanv.me", "google.com"],
         "tags": ["tag1", "tag-2"],
         "hosts": ["nathanv.me", "google.com"],
         "prefixes": ["nathanv.me/assets", "https://google.com/images"],
@@ -403,3 +460,33 @@ def test_cli():
     assert url == "https://api.cloudflare.com/client/v4/zones/zone123/purge_cache"
     assert headers["Authorization"] == "Bearer key123"
     assert data == {"tags": ["tag1", "tag-2"]}
+
+
+def test_whitespace():
+    url, headers, data = run_command(
+        [
+            "--cf-zone",
+            "zone123",
+            "--cf-auth",
+            "key123",
+            "--urls",
+            "nathanv.me\ngoogle.com",
+            "--files",
+            "pay.nathanv.me\tblog.nathanv.me",
+            "--tags",
+            "tag1 tag-2\t  tag3 \n\ntag4",
+            "--hosts",
+            "nathanv.me google.com",
+            "--prefixes",
+            "nathanv.me/assets https://google.com/images",
+        ]
+    )
+
+    assert url == "https://api.cloudflare.com/client/v4/zones/zone123/purge_cache"
+    assert headers["Authorization"] == "Bearer key123"
+    assert data == {
+        "files": ["pay.nathanv.me", "blog.nathanv.me", "nathanv.me", "google.com"],
+        "tags": ["tag1", "tag-2", "tag3", "tag4"],
+        "hosts": ["nathanv.me", "google.com"],
+        "prefixes": ["nathanv.me/assets", "https://google.com/images"],
+    }

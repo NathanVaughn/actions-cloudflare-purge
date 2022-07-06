@@ -19,7 +19,7 @@ def split_and_flatten_list(items: List[str]) -> List[str]:
 
     # split each element by spaces
     for item in items:
-        new_list.extend(item.split(" "))
+        new_list.extend(item.split())
 
     # filter out empty strings
     return [i for i in new_list if i != ""]
@@ -48,6 +48,8 @@ def main() -> None:
 
     # caching objects
     parser.add_argument("--urls", nargs="*", type=str)
+
+    parser.add_argument("--files", nargs="*", type=str)
     parser.add_argument("--tags", nargs="*", type=str)
     parser.add_argument("--hosts", nargs="*", type=str)
     parser.add_argument("--prefixes", nargs="*", type=str)
@@ -58,7 +60,11 @@ def main() -> None:
     # provides a single value for each argument. So, need to split each element
     # by spaces to make it compatible with both with weird argument stuff
     # and normal CLI usage.
+
+    # backwards compatibility
     args.urls = split_and_flatten_list(args.urls)
+
+    args.files = split_and_flatten_list(args.files)
     args.tags = split_and_flatten_list(args.tags)
     args.hosts = split_and_flatten_list(args.hosts)
     args.prefixes = split_and_flatten_list(args.prefixes)
@@ -80,8 +86,12 @@ def main() -> None:
     # prepare the request data
     req_data = {}
 
+    if args.files:
+        req_data["files"] = args.files
+
+    # backwards compatibility
     if args.urls:
-        req_data["files"] = args.urls
+        req_data["files"] = req_data.get("files", []) + args.urls
 
     if args.tags:
         req_data["tags"] = args.tags
@@ -92,7 +102,8 @@ def main() -> None:
     if args.prefixes:
         req_data["prefixes"] = args.prefixes
 
-    if not any([args.urls, args.tags, args.hosts, args.prefixes]):
+    # if nothing was explicitly set, purge everything
+    if not req_data:
         req_data["purge_everything"] = True
 
     # create the request

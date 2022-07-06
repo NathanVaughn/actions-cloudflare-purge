@@ -9,7 +9,7 @@ This action uses Cloudflare's API to purge their
 
 You can mix and match the various inputs however you want
 (other than the zone and auth key). If you don't provide
-`urls` or `tags` or `hosts` or `prefixes`, then all files will be purged.
+`files` or `tags` or `hosts` or `prefixes`, then all files will be purged.
 
 ### `cf_zone` or `CLOUDFLARE_ZONE` environment variable
 
@@ -27,13 +27,15 @@ The Cloudflare API key you've generated for your zone. Example:
 c2547eb745079dac9320b638f5e225cf483cc5cfdda41
 ```
 
-### `urls` (optional)
+### `files` (optional)
 
 A space seperated list of URLs to purge. Example:
 
 ```text
 https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
 ```
+
+The key `urls` is also accepted for backwards compatibility.
 
 ### `tags` (optional)
 
@@ -89,10 +91,18 @@ None
   with:
       cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
       cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
-      urls: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
-      tags: some-tag another-tag
-      hosts: nathanv.me blog.nathanv.me
-      prefixes: nathanv.me/assets/ blog.nathanv.me/assets
+      files: |
+         https://nathanv.me/assets/images/profile.png
+         https://nathanv.me/assets/images/favicons/apple-touch-icon.png
+      tags: |
+         some-tag
+         another-tag
+      hosts: |
+         nathanv.me
+         blog.nathanv.me
+      prefixes: |
+         nathanv.me/assets/
+         blog.nathanv.me/assets
 ```
 
 ## Getting Cloudflare Info

@@ -11,6 +11,9 @@ inputs:
     urls:
         description: "URLs to purge"
         required: false
+    files:
+        description: "Files to purge"
+        required: false
     tags:
         description: "Cache-Tags to purge"
         required: false
@@ -30,6 +33,8 @@ runs:
         - "${{ inputs.cf_auth }}"
         - "--urls"
         - "${{ inputs.urls }}"
+        - "--files"
+        - "${{ inputs.files }}"
         - "--tags"
         - "${{ inputs.tags }}"
         - "--hosts"
