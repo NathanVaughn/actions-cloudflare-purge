@@ -97,11 +97,9 @@ def main() -> None:
 
     # create the request
     url = f"https://api.cloudflare.com/client/v4/zones/{args.cf_zone}/purge_cache"
-    encoded_data = json.dumps(req_data).encode("utf-8")
     headers = {
         "Authorization": f"Bearer {args.cf_auth}",
         "Content-Type": "application/json",
-        "Content-Length": len(encoded_data),
     }
 
     if os.getenv("NATHANVAUGHN_TESTING"):
@@ -113,10 +111,14 @@ def main() -> None:
     else:
         print("Request:")
         print_blue(url)
-        # print_blue(json.dumps(headers, indent=4))
+        print("Headers:")
+        print_blue(json.dumps(headers, indent=4))
+        print("Payload:")
         print_blue(json.dumps(req_data, indent=4))
 
-    req = request.Request(url, data=encoded_data, headers=headers)
+    req = request.Request(
+        url, data=json.dumps(req_data).encode("utf-8"), headers=headers
+    )
     resp = request.urlopen(req)
 
     # process response
