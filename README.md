@@ -99,20 +99,24 @@ None
 
 1. First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
    in your Cloudflare account.
-   ![](images/api-tokens.jpg)
+
+![](images/api-tokens.jpg)
 
 2. Click "Create Token", and fill out the form. Make sure to give the permission of
    zone cache purge.
-   ![](images/token-creation.jpg)
+
+![](images/token-creation.jpg)
 
 3. Click "Continue to summary", then "Confirm".
 
 4. Copy the value of the token.
-   ![](images/copy-token.jpg)
+
+![](images/copy-token.jpg)
 
 5. To find the zone ID for your site, go to your dashboard for the site, and look on the
    right-hand panel.
-   ![](images/zone-id.jpg)
+
+![](images/zone-id.jpg)
 
 Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
 to add these values to your repository's secrets.

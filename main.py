@@ -1,7 +1,6 @@
 import argparse
 import json
 import os
-import pprint
 import sys
 from typing import List
 from urllib import request
@@ -114,8 +113,8 @@ def main() -> None:
     else:
         print("Request:")
         print_blue(url)
-        # print_blue(pprint.pformat(headers))
-        print_blue(pprint.pformat(req_data))
+        # print_blue(json.dumps(headers, indent=4))
+        print_blue(json.dumps(req_data, indent=4))
 
     req = request.Request(url, data=encoded_data, headers=headers)
     resp = request.urlopen(req)
@@ -125,7 +124,7 @@ def main() -> None:
 
     print("=========")
     print("Response:")
-    print_blue(pprint.pformat(resp_data))
+    print_blue(json.dumps(resp_data, indent=4))
 
     if resp_data["success"] != True:
         print("::error::Success NOT True")
