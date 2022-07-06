@@ -26,6 +26,16 @@ def split_and_flatten_list(items: List[str]) -> List[str]:
     return [i for i in new_list if i != ""]
 
 
+def print_blue(text: str) -> None:
+    """
+    Take text input and print each line in blue.
+    """
+    # GitHub actions seems to reset the color after each line,
+    # hence we have to do this.
+    for line in text.split("\n"):
+        print(f"\033[0;34m{line}\033[0m")
+
+
 def main() -> None:
     if not os.getenv("NATHANVAUGHN_TESTING"):
         print(f"::debug::{' '.join(sys.argv)}")
@@ -103,9 +113,9 @@ def main() -> None:
         sys.exit()
     else:
         print("Request:")
-        print(f"\033[0;36m{url}\033[0m")
-        # print(f"\033[0;36m{pprint.pformat(headers)}\033[0m")
-        print(f"\033[0;36m{pprint.pformat(req_data)}\033[0m")
+        print_blue(url)
+        # print_blue(pprint.pformat(headers))
+        print_blue(pprint.pformat(req_data))
 
     req = request.Request(url, data=encoded_data, headers=headers)
     resp = request.urlopen(req)
@@ -113,9 +123,9 @@ def main() -> None:
     # process response
     resp_data = json.loads(resp.read())
 
-    print("\n")
+    print("=========")
     print("Response:")
-    print(f"\033[0;36m{pprint.pformat(resp_data)}\033[0m")
+    print_blue(pprint.pformat(resp_data))
 
     if resp_data["success"] != True:
         print("::error::Success NOT True")
