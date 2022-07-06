@@ -100,6 +100,7 @@ def main() -> None:
     headers = {
         "Authorization": f"Bearer {args.cf_auth}",
         "Content-Type": "application/json",
+        "User-Agent": "github.com/nathanvaughn/actions-cloudflare-purge",
     }
 
     if os.getenv("NATHANVAUGHN_TESTING"):
