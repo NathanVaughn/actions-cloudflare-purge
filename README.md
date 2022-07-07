@@ -7,9 +7,9 @@ This action uses Cloudflare's API to purge their
 
 ## Inputs
 
-You can mix and match the various inputs however you want 
-(other than the zone and auth key). If you don't provide 
-`urls` or `tags` or `hosts` or `prefixes`, then all files will be purged.
+You can mix and match the various inputs however you want
+(other than the zone and auth key). If you don't provide
+`files` or `tags` or `hosts` or `prefixes`, then all files will be purged.
 
 ### `cf_zone` or `CLOUDFLARE_ZONE` environment variable
 
@@ -27,36 +27,38 @@ The Cloudflare API key you've generated for your zone. Example:
 c2547eb745079dac9320b638f5e225cf483cc5cfdda41
 ```
 
-### `urls` (optional)
+### `files` (optional)
 
 A space seperated list of URLs to purge. Example:
 
-```text
-https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
+```yml
+files: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
 ```
+
+The key `urls` is also accepted for backwards compatibility.
 
 ### `tags` (optional)
 
 A space seperated list of tags to purge. Example:
 
-```text
-some-tag another-tag
+```yml
+tags: some-tag another-tag
 ```
 
 ### `hosts` (optional)
 
 A space seperated list of hosts to purge. Example:
 
-```text
-nathanv.me blog.nathanv.me
+```yml
+hosts: nathanv.me blog.nathanv.me
 ```
 
 ### `prefixes` (optional)
 
 A space seperated list of prefixes to purge. Example:
 
-```text
-nathanv.me/assets/ blog.nathanv.me/assets
+```yml
+prefixes: nathanv.me/assets/ blog.nathanv.me/assets
 ```
 
 ## Outputs
@@ -68,53 +70,62 @@ None
 ```yml
 - name: Purge cache
   uses: nathanvaughn/actions-cloudflare-purge@master
-  if: success()
   # preferred
   with:
-    cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
-    cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
+      cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
+      cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
 ```
 
 ```yml
 - name: Purge cache
   uses: nathanvaughn/actions-cloudflare-purge@master
-  if: success()
   # legacy
   env:
-    CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
-    CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
+      CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+      CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
 ```
 
 ```yml
 - name: Purge cache
   uses: nathanvaughn/actions-cloudflare-purge@master
-  if: success()
   with:
-    cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
-    cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
-    urls: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
-    tags: some-tag another-tag
-    hosts: nathanv.me blog.nathanv.me
-    prefixes: nathanv.me/assets/ blog.nathanv.me/assets
+      cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
+      cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
+      files: |
+         https://nathanv.me/assets/images/profile.png
+         https://nathanv.me/assets/images/favicons/apple-touch-icon.png
+      tags: |
+         some-tag
+         another-tag
+      hosts: |
+         nathanv.me
+         blog.nathanv.me
+      prefixes: |
+         nathanv.me/assets/
+         blog.nathanv.me/assets
 ```
 
 ## Getting Cloudflare Info
 
-1.  First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
-in your Cloudflare account.
+1. First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
+   in your Cloudflare account.
+
 ![](images/api-tokens.jpg)
 
-2.  Click "Create Token", and fill out the form. Make sure to give the permission of
-zone cache purge.
+2. Click "Create Token", and fill out the form. Make sure to give the permission of
+   zone cache purge.
+
 ![](images/token-creation.jpg)
 
-3.  Click "Continue to summary", then "Confirm".
+3. Click "Continue to summary", then "Confirm".
 
-4.  Copy the value of the token.
+4. Copy the value of the token.
+
 ![](images/copy-token.jpg)
 
-5.  To find the zone ID for your site, go to your dashboard for the site, and look on the
-right-hand panel.
+5. To find the zone ID for your site, go to your dashboard for the site, and look on the
+   right-hand panel.
+
 ![](images/zone-id.jpg)
 
 Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
