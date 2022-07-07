@@ -31,8 +31,8 @@ c2547eb745079dac9320b638f5e225cf483cc5cfdda41
 
 A space seperated list of URLs to purge. Example:
 
-```text
-https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
+```yml
+files: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
 ```
 
 The key `urls` is also accepted for backwards compatibility.
@@ -41,24 +41,24 @@ The key `urls` is also accepted for backwards compatibility.
 
 A space seperated list of tags to purge. Example:
 
-```text
-some-tag another-tag
+```yml
+tags: some-tag another-tag
 ```
 
 ### `hosts` (optional)
 
 A space seperated list of hosts to purge. Example:
 
-```text
-nathanv.me blog.nathanv.me
+```yml
+hosts: nathanv.me blog.nathanv.me
 ```
 
 ### `prefixes` (optional)
 
 A space seperated list of prefixes to purge. Example:
 
-```text
-nathanv.me/assets/ blog.nathanv.me/assets
+```yml
+prefixes: nathanv.me/assets/ blog.nathanv.me/assets
 ```
 
 ## Outputs
