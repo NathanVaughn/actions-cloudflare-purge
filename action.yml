@@ -28,19 +28,19 @@ runs:
     image: "Dockerfile"
     args:
         - "--cf-zone"
-        - "${{ inputs.cf_zone }}"
+        - '"${{ inputs.cf_zone }}"'
         - "--cf-auth"
-        - "${{ inputs.cf_auth }}"
+        - '"${{ inputs.cf_auth }}"'
         - "--urls"
-        - "${{ inputs.urls }}"
+        - '"${{ inputs.urls }}"'
         - "--files"
-        - "${{ inputs.files }}"
+        - '"${{ inputs.files }}"'
         - "--tags"
-        - "${{ inputs.tags }}"
+        - '"${{ inputs.tags }}"'
         - "--hosts"
-        - "${{ inputs.hosts }}"
+        - '"${{ inputs.hosts }}"'
         - "--prefixes"
-        - "${{ inputs.prefixes }}"
+        - '"${{ inputs.prefixes }}"'
 branding:
     icon: "cloud"
     color: "orange"
