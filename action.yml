@@ -27,10 +27,8 @@ runs:
     using: "docker"
     image: "Dockerfile"
     args:
-        - "--cf-zone"
-        - "${{ inputs.cf_zone }}"
-        - "--cf-auth"
-        - "${{ inputs.cf_auth }}"
+        - "--cf-zone=${{ inputs.cf_zone }}"
+        - "--cf-auth=${{ inputs.cf_auth }}"
         - "--urls"
         - "${{ inputs.urls }}"
         - "--files"
