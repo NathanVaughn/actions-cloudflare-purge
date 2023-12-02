@@ -1,9 +1,9 @@
 import argparse
+import http.client
 import json
 import os
 import sys
 from typing import List
-from urllib import request
 
 
 def split_and_flatten_list(items: List[str]) -> List[str]:
@@ -107,7 +107,8 @@ def main() -> None:
         req_data["purge_everything"] = True
 
     # create the request
-    url = f"https://api.cloudflare.com/client/v4/zones/{args.cf_zone}/purge_cache"
+    conn = http.client.HTTPSConnection("api.cloudflare.com")
+    url = f"/client/v4/zones/{args.cf_zone}/purge_cache"
     headers = {
         "Authorization": f"Bearer {args.cf_auth}",
         "Content-Type": "application/json",
@@ -116,31 +117,28 @@ def main() -> None:
 
     if os.getenv("NATHANVAUGHN_TESTING"):
         # when testing, don't actually make a request
-        print(url)
+        print(f"https://{conn.host}{url}")
         print(json.dumps(headers))
         print(json.dumps(req_data))
         sys.exit()
     else:
         print("Request:")
-        print_blue(url)
+        print_blue(f"https://{conn.host}{url}")
         print("Headers:")
         print_blue(json.dumps(headers, indent=4))
         print("Payload:")
         print_blue(json.dumps(req_data, indent=4))
 
-    req = request.Request(
-        url, data=json.dumps(req_data).encode("utf-8"), headers=headers
-    )
-    resp = request.urlopen(req)
+    conn.request("POST", url, json.dumps(req_data).encode("utf-8"), headers)
+    resp = conn.getresponse()
 
     # process response
     resp_data = json.loads(resp.read())
 
-    print("=========")
     print("Response:")
     print_blue(json.dumps(resp_data, indent=4))
 
-    if resp_data["success"] != True:
+    if resp_data["success"] is not True:
         print("::error::Success NOT True")
         sys.exit(1)
 
