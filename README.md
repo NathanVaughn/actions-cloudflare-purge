@@ -5,6 +5,9 @@
 This action uses Cloudflare's API to purge their
 [cache](https://api.cloudflare.com/#zone-purge-all-files) of your site.
 
+As of April 1st, 2025, all purge methods are now available
+for [all customers](https://blog.cloudflare.com/instant-purge-for-all/).
+
 ## Inputs
 
 You can mix and match the various inputs however you want
