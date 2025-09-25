@@ -1,0 +1,27 @@
+{
+    "image": "ghcr.io/nathanvaughn/devcontainers/python:latest",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "streetsidesoftware.code-spell-checker",
+                "tamasfe.even-better-toml",
+                "mhutchie.git-graph",
+                "donjayamanne.githistory",
+                "github.vscode-github-actions",
+                "spywhere.guides",
+                "yzhang.markdown-all-in-one",
+                "DavidAnson.vscode-markdownlint",
+                "ms-python.python",
+                "charliermarsh.ruff",
+                "sourcery.sourcery",
+                "actboy168.tasks",
+                "shardulm94.trailing-spaces",
+                "redhat.vscode-yaml",
+                "twixes.pypi-assistant"
+            ]
+        }
+    },
+    "mounts": [
+        "source=devcontainer-profile-${containerWorkspaceFolderBasename},target=/home/dev/,type=volume"
+    ]
+}

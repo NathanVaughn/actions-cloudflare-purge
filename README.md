@@ -64,6 +64,18 @@ A space separated list of prefixes to purge. Example:
 prefixes: nathanv.me/assets/ blog.nathanv.me/assets
 ```
 
+### `python` (optional)
+
+The path to the Python interpreter to use, in case you are using a self-hosted runner.
+Defaults to `python`. Must be Python 3.8 or higher.
+
+Example:
+
+```yml
+python: /usr/bin/python3.10
+```
+
+
 ## Outputs
 
 None

@@ -1,0 +1,10 @@
+[project]
+    name            = "actions-cloudflare-purge"
+    version         = "0.1.0"
+    description     = "A GitHub Action to purge Cloudflare's cache of your site"
+    readme          = "README.md"
+    requires-python = ">=3.8"
+    dependencies    = []
+
+[dependency-groups]
+    dev = ["pytest>=8.3.5"]
