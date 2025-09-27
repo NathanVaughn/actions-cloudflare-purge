@@ -84,7 +84,7 @@ None
 
 ```yml
 - name: Purge cache
-  uses: nathanvaughn/actions-cloudflare-purge@master
+  uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
   # preferred
   with:
       cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
@@ -93,7 +93,7 @@ None
 
 ```yml
 - name: Purge cache
-  uses: nathanvaughn/actions-cloudflare-purge@master
+  uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
   # legacy
   env:
       CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
@@ -102,7 +102,7 @@ None
 
 ```yml
 - name: Purge cache
-  uses: nathanvaughn/actions-cloudflare-purge@master
+  uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
   with:
       cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
       cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
