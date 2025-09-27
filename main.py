@@ -109,6 +109,7 @@ def main() -> None:
         req_data["purge_everything"] = True
 
     # create the request
+    # https://developers.cloudflare.com/api/resources/cache/methods/purge/
     conn = http.client.HTTPSConnection("api.cloudflare.com")
     url = f"/client/v4/zones/{args.cf_zone}/purge_cache"
     headers = {

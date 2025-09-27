@@ -1,9 +1,8 @@
 # Cloudflare Cache Purge Action
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-This action uses Cloudflare's API to purge their
+This unofficial Action uses Cloudflare's API to purge their
 [cache](https://api.cloudflare.com/#zone-purge-all-files) of your site.
+A Python 3.8+ interpreter is required (installed by default on GitHub-hosted runners).
 
 As of April 1st, 2025, all purge methods are now available
 for [all customers](https://blog.cloudflare.com/instant-purge-for-all/).
@@ -37,6 +36,8 @@ A space separated list of URLs to purge. Example:
 ```yml
 files: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
 ```
+
+URL and header pairs are not supported in this Action.
 
 The key `urls` is also accepted for backwards compatibility.
 
