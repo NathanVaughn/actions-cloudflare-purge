@@ -122,28 +122,36 @@ None
 
 ## Getting Cloudflare Info
 
-1. First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
-   in your Cloudflare account.
+1. First, go to your [user](https://dash.cloudflare.com/profile/api-tokens)
+   or [account](https://dash.cloudflare.com/?to=/:account/api-tokens) API tokens
+   page in your Cloudflare dashboard.
 
-![](images/api-tokens.jpg)
+![Account API tokens](images/api-tokens.png)
 
-2. Click "Create Token", and fill out the form. Make sure to give the permission of
-   zone cache purge.
+2. Click "Create Token", and scroll down to the bottom for "Create Custom Token".
+   Click "Get started".
 
-![](images/token-creation.jpg)
+![Create custom token](images/custom-token.png)
 
-3. Click "Continue to summary", then "Confirm".
+3. Fill out the form. Make sure to give the permission of
+   "Zone" -> "Cache Purge" -> "Purge". Either select a specific zone, or all zones
+   in the account.
 
-4. Copy the value of the token.
+![Custom token creation form](images/token-creation.png)
 
-![](images/copy-token.jpg)
+4. Click "Continue to summary", then "Create Token".
 
-5. To find the zone ID for your site, go to your dashboard for the site, and look on the
-   right-hand panel.
+5. Copy the value of the token.
 
-![](images/zone-id.jpg)
+![Copy token page](images/copy-token.png)
 
-Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
-to add these values to your repository's secrets.
+6. To find the zone ID for your site, go to your dashboard for the zone,
+   and look on the right-hand panel.
 
-![](images/secrets.jpg)
+![Zone ID location](images/zone-id.png)
+
+7. Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
+to add these values to your repository's secrets. It is under the "Settings" tab,
+then "Secrets and variables" and "Actions".
+
+![Repository secrets](images/secrets.png)
