@@ -8,7 +8,7 @@
         },
         {
             "label": "pre-commit",
-            "command": "uv run pre-commit run --all-files",
+            "command": "uv run --python 3.13 pre-commit run --all-files",
             "type": "shell"
         },
         {
