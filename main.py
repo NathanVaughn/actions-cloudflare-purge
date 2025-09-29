@@ -5,6 +5,8 @@ import os
 import sys
 from typing import List
 
+IS_TESTING = os.environ.get("IS_TESTING")
+
 
 def split_and_flatten_list(items: List[str]) -> List[str]:
     """
@@ -36,7 +38,7 @@ def print_blue(text: str) -> None:
 
 
 def main() -> None:
-    if not os.getenv("NATHANVAUGHN_TESTING"):
+    if not IS_TESTING:
         print(f"::debug::{' '.join(sys.argv)}")
 
     # parse the arguments
@@ -107,6 +109,7 @@ def main() -> None:
         req_data["purge_everything"] = True
 
     # create the request
+    # https://developers.cloudflare.com/api/resources/cache/methods/purge/
     conn = http.client.HTTPSConnection("api.cloudflare.com")
     url = f"/client/v4/zones/{args.cf_zone}/purge_cache"
     headers = {
@@ -115,7 +118,7 @@ def main() -> None:
         "User-Agent": "github.com/nathanvaughn/actions-cloudflare-purge",
     }
 
-    if os.getenv("NATHANVAUGHN_TESTING"):
+    if IS_TESTING:
         # when testing, don't actually make a request
         print(f"https://{conn.host}{url}")
         print(json.dumps(headers))

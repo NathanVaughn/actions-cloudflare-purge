@@ -1,5 +1,5 @@
 name: "Cloudflare Cache Purge Action"
-description: "A GitHub Action to purge Cloudflare's entire cache of your site"
+description: "A GitHub Action to purge Cloudflare's cache of your site"
 author: "Nathan Vaughn"
 inputs:
     cf_zone:
@@ -23,22 +23,18 @@ inputs:
     prefixes:
         description: "Prefixes to purge"
         required: false
-runs:
-    using: "docker"
-    image: "Dockerfile"
-    args:
-        - "--cf-zone=${{ inputs.cf_zone }}"
-        - "--cf-auth=${{ inputs.cf_auth }}"
-        - "--urls"
-        - "${{ inputs.urls }}"
-        - "--files"
-        - "${{ inputs.files }}"
-        - "--tags"
-        - "${{ inputs.tags }}"
-        - "--hosts"
-        - "${{ inputs.hosts }}"
-        - "--prefixes"
-        - "${{ inputs.prefixes }}"
+    python:
+        description: "Python interpreter to use"
+        required: false
+        default: python
+
 branding:
     icon: "cloud"
     color: "orange"
+
+runs:
+    using: composite
+    steps:
+      - name: "Purge Cloudflare Cache"
+        shell: bash
+        run: ${{ inputs.python }} ${{ github.action_path }}/main.py --cf-zone="${{ inputs.cf_zone }}" --cf-auth="${{ inputs.cf_auth }}" --urls "${{ inputs.urls }}" --files "${{ inputs.files }}" --tags "${{ inputs.tags }}" --hosts "${{ inputs.hosts }}" --prefixes "${{ inputs.prefixes }}"

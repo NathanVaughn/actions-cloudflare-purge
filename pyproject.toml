@@ -1,0 +1,18 @@
+[project]
+    name            = "actions-cloudflare-purge"
+    version         = "4.0.0"
+    description     = "A GitHub Action to purge Cloudflare's cache of your site"
+    readme          = "README.md"
+    requires-python = ">=3.9"
+    dependencies    = []
+
+[dependency-groups]
+    dev = ["pre-commit>=3.2.0", "pytest>=8.3.5"]
+
+[tool.pyright]
+    pythonVersion              = "3.9"
+    pythonPlatform             = "All"
+    typeCheckingMode           = "standard"
+    venvPath                   = "."
+    venv                       = ".venv"
+    reportMissingParameterType = true

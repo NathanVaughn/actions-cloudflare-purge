@@ -1,9 +1,8 @@
 # Cloudflare Cache Purge Action
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-This action uses Cloudflare's API to purge their
+This unofficial Action uses Cloudflare's API to purge their
 [cache](https://api.cloudflare.com/#zone-purge-all-files) of your site.
+A Python 3.9+ interpreter is required (installed by default on GitHub-hosted runners).
 
 As of April 1st, 2025, all purge methods are now available
 for [all customers](https://blog.cloudflare.com/instant-purge-for-all/).
@@ -38,6 +37,8 @@ A space separated list of URLs to purge. Example:
 files: https://nathanv.me/assets/images/profile.png https://nathanv.me/assets/images/favicons/apple-touch-icon.png
 ```
 
+URL and header pairs are not supported in this Action.
+
 The key `urls` is also accepted for backwards compatibility.
 
 ### `tags` (optional)
@@ -64,6 +65,18 @@ A space separated list of prefixes to purge. Example:
 prefixes: nathanv.me/assets/ blog.nathanv.me/assets
 ```
 
+### `python` (optional)
+
+The path to the Python interpreter to use, in case you are using a self-hosted runner.
+Defaults to `python`. Must be Python 3.9 or higher.
+
+Example:
+
+```yml
+python: /usr/bin/python3.10
+```
+
+
 ## Outputs
 
 None
@@ -72,7 +85,7 @@ None
 
 ```yml
 - name: Purge cache
-  uses: nathanvaughn/actions-cloudflare-purge@master
+  uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
   # preferred
   with:
       cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
@@ -81,7 +94,7 @@ None
 
 ```yml
 - name: Purge cache
-  uses: nathanvaughn/actions-cloudflare-purge@master
+  uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
   # legacy
   env:
       CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
@@ -90,7 +103,7 @@ None
 
 ```yml
 - name: Purge cache
-  uses: nathanvaughn/actions-cloudflare-purge@master
+  uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
   with:
       cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
       cf_auth: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
@@ -110,28 +123,36 @@ None
 
 ## Getting Cloudflare Info
 
-1. First, go to the [API tokens page](https://dash.cloudflare.com/profile/api-tokens)
-   in your Cloudflare account.
+1. First, go to your [user](https://dash.cloudflare.com/profile/api-tokens)
+   or [account](https://dash.cloudflare.com/?to=/:account/api-tokens) API tokens
+   page in your Cloudflare dashboard.
 
-![](images/api-tokens.jpg)
+![Account API tokens](images/api-tokens.png)
 
-2. Click "Create Token", and fill out the form. Make sure to give the permission of
-   zone cache purge.
+2. Click "Create Token", and scroll down to the bottom for "Create Custom Token".
+   Click "Get started".
 
-![](images/token-creation.jpg)
+![Create custom token](images/custom-token.png)
 
-3. Click "Continue to summary", then "Confirm".
+3. Fill out the form. Make sure to give the permission of
+   "Zone" -> "Cache Purge" -> "Purge". Either select a specific zone, or all zones
+   in the account.
 
-4. Copy the value of the token.
+![Custom token creation form](images/token-creation.png)
 
-![](images/copy-token.jpg)
+4. Click "Continue to summary", then "Create Token".
 
-5. To find the zone ID for your site, go to your dashboard for the site, and look on the
-   right-hand panel.
+5. Copy the value of the token.
 
-![](images/zone-id.jpg)
+![Copy token page](images/copy-token.png)
 
-Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
-to add these values to your repository's secrets.
+6. To find the zone ID for your site, go to your dashboard for the zone,
+   and look on the right-hand panel.
 
-![](images/secrets.jpg)
+![Zone ID location](images/zone-id.png)
+
+7. Follow GitHub's [documentation](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
+to add these values to your repository's secrets. It is under the "Settings" tab,
+then "Secrets and variables" and "Actions".
+
+![Repository secrets](images/secrets.png)

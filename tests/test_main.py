@@ -7,7 +7,7 @@ from typing import List, Tuple
 import pytest
 
 # weird environment variable to enable testing mode that no one else should ever set
-os.environ["NATHANVAUGHN_TESTING"] = "True"
+os.environ["IS_TESTING"] = "True"
 
 
 def run_command(options: List[str]) -> Tuple[str, dict, dict]:

@@ -1,0 +1,29 @@
+repos:
+-   repo: https://gitlab.com/bmares/check-json5
+    rev: v1.0.0
+    hooks:
+    -   id: check-json5
+-   hooks:
+    -   id: check-toml
+    -   id: check-yaml
+    -   id: check-case-conflict
+    -   id: trailing-whitespace
+    -   id: check-merge-conflict
+    -   id: mixed-line-ending
+    repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+-   hooks:
+    -   id: uv-lock
+    repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.22
+-   hooks:
+    -   args:
+        -   --fix
+        id: ruff-check
+    -   id: ruff-format
+    repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.2
+-   hooks:
+    -   id: pyright
+    repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.405
