@@ -2,7 +2,7 @@
 
 This unofficial Action uses Cloudflare's API to purge their
 [cache](https://api.cloudflare.com/#zone-purge-all-files) of your site.
-A Python 3.9+ interpreter is required (installed by default on GitHub-hosted runners).
+A Python 3.10+ interpreter is required (installed by default on GitHub-hosted runners).
 
 As of April 1st, 2025, all purge methods are now available
 for [all customers](https://blog.cloudflare.com/instant-purge-for-all/).
@@ -68,7 +68,7 @@ prefixes: nathanv.me/assets/ blog.nathanv.me/assets
 ### `python` (optional)
 
 The path to the Python interpreter to use, in case you are using a self-hosted runner.
-Defaults to `python`. Must be Python 3.9 or higher.
+Defaults to `python`. Must be Python 3.10 or higher.
 
 Example:
 
