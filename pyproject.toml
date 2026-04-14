@@ -7,7 +7,7 @@
     dependencies    = []
 
 [dependency-groups]
-    dev = ["pre-commit>=3.2.0", "pytest>=8.3.5"]
+    dev = ["pre-commit>=3.2.0", "pytest>=9.0.3"]
 
 [tool.pyright]
     pythonVersion              = "3.9"
