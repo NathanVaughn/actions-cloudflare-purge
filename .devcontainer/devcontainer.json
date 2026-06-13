@@ -13,7 +13,6 @@
                 "DavidAnson.vscode-markdownlint",
                 "ms-python.python",
                 "charliermarsh.ruff",
-                "sourcery.sourcery",
                 "actboy168.tasks",
                 "shardulm94.trailing-spaces",
                 "redhat.vscode-yaml",
