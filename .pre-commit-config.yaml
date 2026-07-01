@@ -24,6 +24,6 @@ repos:
     repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.19
 -   hooks:
-    -   id: pyright
-    repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.410
+    -   id: ty
+    repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.55

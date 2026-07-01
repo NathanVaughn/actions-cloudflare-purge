@@ -3,12 +3,12 @@
     "tasks": [
         {
             "label": "install-pre-commit",
-            "command": "uv run pre-commit install",
+            "command": "uv run prek install",
             "type": "shell"
         },
         {
             "label": "pre-commit",
-            "command": "uv run --python 3.13 pre-commit run --all-files",
+            "command": "uv run prek run --all-files",
             "type": "shell"
         },
         {

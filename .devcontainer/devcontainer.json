@@ -16,7 +16,8 @@
                 "actboy168.tasks",
                 "shardulm94.trailing-spaces",
                 "redhat.vscode-yaml",
-                "twixes.pypi-assistant"
+                "twixes.pypi-assistant",
+                "astral-sh.ty"
             ]
         }
     },
