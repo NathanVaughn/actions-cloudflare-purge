@@ -7,8 +7,9 @@
     dependencies    = []
 
 [dependency-groups]
-    dev = [
-    "prek>=0.4.5",
-    "pytest>=8.3.5",
-]
+    dev = ["prek>=0.4.5", "pytest>=8.3.5"]
 
+
+[tool.ruff.lint]
+    # Disable pyupgrade, target as low of a version as possible
+    ignore = ["UP"]

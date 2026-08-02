@@ -82,7 +82,7 @@ def test_new():
 
 def test_new_missing():
     # test missing authentication
-    with pytest.raises(Exception):
+    with pytest.raises(subprocess.CalledProcessError):
         run_command(
             [
                 "--cf-zone",
@@ -102,7 +102,7 @@ def test_new_missing():
             ]
         )
 
-    with pytest.raises(Exception):
+    with pytest.raises(subprocess.CalledProcessError):
         run_command(
             [
                 "--cf-zone",
@@ -122,7 +122,7 @@ def test_new_missing():
             ]
         )
 
-    with pytest.raises(Exception):
+    with pytest.raises(subprocess.CalledProcessError):
         run_command(
             [
                 "--cf-zone",
@@ -146,7 +146,7 @@ def test_new_missing():
 def test_legacy_missing():
     # test missing authentication
     os.environ["CLOUDFLARE_AUTH_KEY"] = "key123"
-    with pytest.raises(Exception):
+    with pytest.raises(subprocess.CalledProcessError):
         run_command(
             [
                 "--cf-zone",
@@ -168,7 +168,7 @@ def test_legacy_missing():
     del os.environ["CLOUDFLARE_AUTH_KEY"]
 
     os.environ["CLOUDFLARE_ZONE"] = "zone123"
-    with pytest.raises(Exception):
+    with pytest.raises(subprocess.CalledProcessError):
         run_command(
             [
                 "--cf-zone",
@@ -189,7 +189,7 @@ def test_legacy_missing():
         )
     del os.environ["CLOUDFLARE_ZONE"]
 
-    with pytest.raises(Exception):
+    with pytest.raises(subprocess.CalledProcessError):
         run_command(
             [
                 "--cf-zone",
