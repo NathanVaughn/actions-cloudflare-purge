@@ -15,15 +15,15 @@ repos:
 -   hooks:
     -   id: uv-lock
     repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.11.24
+    rev: 0.11.32
 -   hooks:
     -   args:
         -   --fix
         id: ruff-check
     -   id: ruff-format
     repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.19
+    rev: v0.16.0
 -   hooks:
     -   id: ty
     repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.55
+    rev: v0.0.63
